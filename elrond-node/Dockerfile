@@ -9,11 +9,11 @@ RUN useradd -ms /bin/bash elrond
 # sudo password is not required for the elrond user because of the update scripts
 RUN bash -c 'echo "elrond ALL=(ALL:ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)'
 
-ENV GO_VERSION=1.13.6
-RUN wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz \
-    && tar -xvf go${GO_VERSION}.linux-amd64.tar.gz \
+ENV GO_VERSION=1.13.8
+RUN wget https://dl.google.com/go/go${GO_VERSION}.linux-arm64.tar.gz \
+    && tar -xvf go${GO_VERSION}.linux-arm64.tar.gz \
     && mv go /usr/local \
-    && rm go${GO_VERSION}.linux-amd64.tar.gz \
+    && rm go${GO_VERSION}.linux-arm64.tar.gz \
     && apt-get clean
 
 ENV GOROOT=/usr/local/go
@@ -23,9 +23,10 @@ USER elrond
 WORKDIR /home/elrond
 ENV GOPATH=/home/elrond/go 
 RUN mkdir -p $GOPATH/src/github.com/ElrondNetwork
-RUN git clone https://github.com/ElrondNetwork/elrond-go-scripts-v2
+RUN git clone https://github.com/groninge01/elrond-go-scripts-v2
+ADD  --chown=elrond:elrond libwasmer_runtime_c_api.so /tmp/libwasmer_runtime_c_api.so
 ADD  --chown=elrond:elrond install_elrond.sh /tmp/install_elrond.sh
-RUN chmod +x /tmp/install_elrond.sh && /tmp/install_elrond.sh
+RUN chmod +x /tmp/install_elrond.sh && sleep 1 && /tmp/install_elrond.sh
 ADD  --chown=elrond:elrond entrypoint.sh /home/elrond/entrypoint.sh
 RUN chmod +x /home/elrond/entrypoint.sh
 RUN mkdir -p  /home/elrond/elrond-nodes/node-0/ && chown 1000:1000 -R /home/elrond/elrond-nodes/node-0/ 
