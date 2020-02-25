@@ -1,4 +1,4 @@
-# Modified for arm64 (Odroid C2)
+modified for arm64 (Odroid C2)
 
 # Elrond Docker
 This is a simple setup for Docker and staying as close as possible to using the official scripts.
