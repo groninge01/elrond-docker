@@ -40,6 +40,13 @@ cd elrond-docker
 The data of all the nodes will be stored in the volumes subdirectory.
 
 ## 1. Configure your nodes
+Run the command below to find out the correct architecure.
+
+``
+uname -m
+``
+Then set the ARCH variable in the file elrond-node/Dockerfile (x86_64 -> amd64, aarch64 -> arm64)
+
 Run the command below to initialise your node the first time.
 
 ``
@@ -92,4 +99,9 @@ docker exec -it <node-name> ./termui
 ### Rebuild the container images
 ```
 ./script.sh rebuild
+```
+### Clear all nodes data and force a fresh start
+```
+./script.sh rebuild
+./script.sh clear
 ```
