@@ -24,7 +24,7 @@ sed -n '/sudo systemctl/!p' -i /home/elrond/elrond-go-scripts-v2/script.sh
 paths
 go_lang
 git_clone
-build_keygen
+#build_keygen
 build_node
 install
 install_utils
